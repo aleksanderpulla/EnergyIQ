@@ -59,13 +59,13 @@ export function YearlyUsage() {
       <BarChart data={data}>
         <XAxis
           dataKey="name"
-          stroke="#d2cdcd"
+          stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
         />
         <YAxis
-          stroke="#d2cdcd"
+          stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
