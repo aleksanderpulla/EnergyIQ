@@ -17,25 +17,6 @@ export async function GET(request: Request) {
   }
 }
 
-function getCurrentDateTime(): string {
-  const now = new Date();
-
-  // Extract date components
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0'); 
-  const year = now.getFullYear();
-
-  // Extract time components
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const seconds = String(now.getSeconds()).padStart(2, '0');
-
-  // Construct formatted datetime string
-  const formattedDateTime = `${day}:${month}:${year}:${hours}h:${minutes}m:${seconds}s`;
-
-  return formattedDateTime;
-}
-
 export async function POST(request: Request) {
   try {
     await connectToDatabase();
@@ -47,9 +28,8 @@ export async function POST(request: Request) {
       return NextResponse.error();
     }
     else{
-      const timenow = getCurrentDateTime();
       const newData = new DataModel({
-        timestamp: timenow,
+        timestamp: Date,
         current: data.current,
         voltage: data.voltage,
         power: data.power,
@@ -59,7 +39,7 @@ export async function POST(request: Request) {
 
       await newData.save();
     }
-    return NextResponse.json({ time: getCurrentDateTime(),message: "Data saved successfully"});
+    return NextResponse.json({ time: new Date,message: "Data saved successfully"});
 
   } catch (error) {
     console.error("Error while processing POST request:", error);
