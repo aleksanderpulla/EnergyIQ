@@ -14,10 +14,10 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <>
-      <div className="hidden flex-col md:flex">
+      <div className="flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-8">
-            <h2 className="text-3xl dark:font-extralight tracking-tight dark:text-emerald-300 text-emerald-600 font-light">
+            <h2 className="md:text-3xl text-2xl dark:font-extralight tracking-tight dark:text-emerald-300 text-emerald-600 font-light">
               EnergyIQ
             </h2>
             <div className="ml-auto flex items-center space-x-4">
