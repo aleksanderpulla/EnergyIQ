@@ -27,27 +27,15 @@ export const metadata: Metadata = {
 export default function DashboardPage() {
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/dashboard-light.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/dashboard-dark.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="hidden dark:block"
-        />
-      </div>
       <div className="hidden flex-col md:flex">
         <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <TeamSwitcher />
-            <MainNav className="mx-6" />
+          <div className="flex h-16 items-center px-8">
+            {/* <TeamSwitcher />
+            <MainNav className="mx-6" /> */}
+            <h2 className="text-3xl font-extralight tracking-tight dark:text-emerald-300 text-emerald-500">
+              EnergyIQ
+            </h2>
+
             <div className="ml-auto flex items-center space-x-4">
               <Search />
               <UserNav />
@@ -66,9 +54,6 @@ export default function DashboardPage() {
           <Tabs defaultValue="overview" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
               <TabsTrigger value="reports" disabled>
                 Reports
               </TabsTrigger>
