@@ -1,7 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface DataDocument extends Document {
-  timestamp: string;
+  timestamp: Date;
   current: number;
   voltage: number;
   frequency: number;
@@ -10,35 +10,35 @@ export interface DataDocument extends Document {
 }
 //this is schema db
 const DataSchema: Schema<DataDocument> = new Schema<DataDocument>({
-  timestamp:{
-    type: String,
-    required: true
+  timestamp: {
+    type: Date,
+    required: true,
   },
-  current: { 
-    type: Number, 
-    required: true
-  },
-  voltage: { 
+  current: {
     type: Number,
-    required: true
+    required: true,
   },
-  frequency:{
+  voltage: {
     type: Number,
-    required: true
+    required: true,
   },
-  power:{
+  frequency: {
     type: Number,
-    required: true
+    required: true,
   },
-  energy:{
+  power: {
     type: Number,
-    required: true
-  }
+    required: true,
+  },
+  energy: {
+    type: Number,
+    required: true,
+  },
 });
 
 // Check if the model already exists and delete it
-if (mongoose.models['Data']) {
-  delete mongoose.models['Data'];
+if (mongoose.models["Data"]) {
+  delete mongoose.models["Data"];
 }
 
-export const DataModel = mongoose.model('Data', DataSchema);
+export const DataModel = mongoose.model("Data", DataSchema);
