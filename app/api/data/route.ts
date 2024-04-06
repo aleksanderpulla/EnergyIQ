@@ -31,7 +31,7 @@ function getCurrentDateTime(): string {
   const seconds = String(now.getSeconds()).padStart(2, '0');
 
   // Construct formatted datetime string
-  const formattedDateTime = `${day}:${month}:${year}:${hours}h:${minutes}m:${seconds}s`;
+  const formattedDateTime = `${day}:${month}:${year}:${hours}:${minutes}:${seconds}`;
 
   return formattedDateTime;
 }
