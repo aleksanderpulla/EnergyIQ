@@ -149,7 +149,7 @@ export default function DashboardPage() {
               </div>
               <Card className="col-span-12">
                 <CardHeader>
-                  <CardTitle>Yearly Usage</CardTitle>
+                  <CardTitle>Monthly Usage (power)</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <YearlyUsage />
