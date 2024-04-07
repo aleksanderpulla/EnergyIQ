@@ -9,7 +9,8 @@ import { getConsumption, queryYearlyConsumption } from "@/lib/database/data";
 
 export const metadata: Metadata = {
   title: "EnergyIQ",
-  description: "Example dashboard app built using the components.",
+  description:
+    "Powered by cutting-edge CT Sensor technology, EnergyIQ empowers users to monitor, analyze, and control energy usage seamlessly",
 };
 
 export default async function DashboardPage() {
