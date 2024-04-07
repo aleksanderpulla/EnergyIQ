@@ -51,15 +51,15 @@ export async function queryMonthlyConsumption() {
     console.log("Valid end date:", validEndDate);
 
     const monthlyConsumption = await Data.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: validStartDate, $lt: validEndDate },
-        },
-      },
+      // {
+      //   $match: {
+      //     createdAt: { $gte: validStartDate, $lt: validEndDate },
+      //   },
+      // },
       {
         $group: {
-          _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },
-          energy: { $sum: "$energy" }, // Assuming 'consumption' is the field to sum
+          _id: { $dateToString: { format: "%b", date: "$createdAt" } },
+          energy: { $sum: "$energy" },
         },
       },
     ]);
