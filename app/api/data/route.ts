@@ -30,8 +30,6 @@ export async function POST(request: Request) {
         energy: data.energy,
       });
 
-      console.log(newData);
-
       await newData.save();
       return NextResponse.json({
         time: new Date(),

@@ -3,19 +3,17 @@ import Data from "./models/data.model";
 import { revalidatePath } from "next/cache";
 
 export async function getConsumption() {
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
     const latestData = await Data.findOne().sort({ createdAt: -1 }).exec();
-    console.log(latestData);
+    revalidatePath("/");
     return latestData;
-    // revalidatePath("/", "layout");
   } catch (error) {
     console.error("Error reading latest data:", error);
     return null;
   }
 }
-export async function queryMonthlyConsumption() {
+export async function queryYearlyConsumption() {
   try {
     await connectToDatabase();
 
@@ -47,28 +45,49 @@ export async function queryMonthlyConsumption() {
     const validStartDate = minDate < startDate ? startDate : minDate;
     const validEndDate = maxDate > endDate ? endDate : maxDate;
 
-    console.log("Valid start date:", validStartDate);
-    console.log("Valid end date:", validEndDate);
-
     const monthlyConsumption = await Data.aggregate([
-      // {
-      //   $match: {
-      //     createdAt: { $gte: validStartDate, $lt: validEndDate },
-      //   },
-      // },
       {
         $group: {
-          _id: { $dateToString: { format: "%b", date: "$createdAt" } },
+          _id: { $dateToString: { format: "%m", date: "$createdAt" } },
           energy: { $sum: "$energy" },
+        },
+      },
+      {
+        $addFields: {
+          monthName: {
+            $let: {
+              vars: {
+                monthsInString: [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ],
+                monthIndex: { $subtract: [{ $toInt: "$_id" }, 1] },
+              },
+              in: { $arrayElemAt: ["$$monthsInString", "$$monthIndex"] },
+            },
+          },
+        },
+      },
+      {
+        $sort: {
+          _id: 1,
         },
       },
     ]);
 
-    console.log("Arnold:", monthlyConsumption);
-
     return monthlyConsumption;
   } catch (error) {
-    console.error("Error querying monthly consumption:", error);
+    console.error("Error querying yearly consumption:", error);
     throw error;
   }
 }

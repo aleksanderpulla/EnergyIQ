@@ -53,12 +53,16 @@ const data = [
   },
 ];
 
-export function YearlyUsage() {
+type Props = {
+  yearlyConsumption: String[];
+};
+
+export function YearlyUsage({ yearlyConsumption }: Props) {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      <BarChart data={yearlyConsumption}>
         <XAxis
-          dataKey="name"
+          dataKey={"monthName"}
           stroke="#888888"
           fontSize={12}
           tickLine={false}
@@ -72,7 +76,7 @@ export function YearlyUsage() {
           tickFormatter={(value) => `${value}kWh`}
         />
         <Bar
-          dataKey="total"
+          dataKey="energy"
           fill="currentColor"
           radius={[4, 4, 0, 0]}
           className="fill-primary"
