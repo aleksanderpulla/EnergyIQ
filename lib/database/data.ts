@@ -6,7 +6,7 @@ export async function getConsumption() {
   try {
     await connectToDatabase();
     const latestData = await Data.findOne().sort({ createdAt: -1 }).exec();
-    revalidatePath("/");
+    // revalidatePath("/");
     return latestData;
   } catch (error) {
     console.error("Error reading latest data:", error);

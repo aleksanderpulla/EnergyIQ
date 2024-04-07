@@ -1,5 +1,6 @@
 "use client";
 
+//@ts-ignore
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
 const data = [
@@ -73,7 +74,7 @@ export function YearlyUsage({ yearlyConsumption }: Props) {
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `${value}kWh`}
+          tickFormatter={(value: number) => `${value}kWh`}
         />
         <Bar
           dataKey="energy"
