@@ -17,7 +17,6 @@ export default async function DashboardPage() {
   const { current, voltage, frequency, power } = await getConsumption();
 
   const yearlyConsumption = await queryYearlyConsumption();
-  // console.log("Yearly Consumption:\n", yearlyConsumption);
 
   return (
     <>
