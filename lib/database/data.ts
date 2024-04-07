@@ -9,7 +9,7 @@ export async function getConsumption() {
     const latestData = await Data.findOne().sort({ createdAt: -1 }).exec();
     console.log(latestData);
     return latestData;
-    revalidatePath("/");
+    // revalidatePath("/", "layout");
   } catch (error) {
     console.error("Error reading latest data:", error);
     return null;
@@ -24,8 +24,8 @@ export async function queryMonthlyConsumption() {
       {
         $group: {
           _id: null,
-          minDate: { $min: "$timestamp" },
-          maxDate: { $max: "$timestamp" },
+          minDate: { $min: "$createdAt" },
+          maxDate: { $max: "$createdAt" },
         },
       },
     ]);
@@ -47,19 +47,24 @@ export async function queryMonthlyConsumption() {
     const validStartDate = minDate < startDate ? startDate : minDate;
     const validEndDate = maxDate > endDate ? endDate : maxDate;
 
+    console.log("Valid start date:", validStartDate);
+    console.log("Valid end date:", validEndDate);
+
     const monthlyConsumption = await Data.aggregate([
       {
         $match: {
-          timestmp: { $gte: validStartDate, $lt: validEndDate },
+          createdAt: { $gte: validStartDate, $lt: validEndDate },
         },
       },
       {
         $group: {
-          _id: { $dateToString: { format: "%Y-%m", date: "$timestamp" } },
-          consumption: { $sum: "$energy" }, // Assuming 'consumption' is the field to sum
+          _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },
+          energy: { $sum: "$energy" }, // Assuming 'consumption' is the field to sum
         },
       },
     ]);
+
+    console.log("Arnold:", monthlyConsumption);
 
     return monthlyConsumption;
   } catch (error) {

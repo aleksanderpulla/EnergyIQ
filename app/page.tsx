@@ -5,7 +5,7 @@ import { YearlyUsage } from "@/components/overview";
 import { Search } from "@/components/search";
 import { UserNav } from "@/components/user-nav";
 import { ModeToggle } from "@/components/toggler";
-import { getConsumption } from "@/lib/database/data";
+import { getConsumption, queryMonthlyConsumption } from "@/lib/database/data";
 
 export const metadata: Metadata = {
   title: "EnergyIQ",
@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   const { current, voltage, frequency, power } = await getConsumption();
+  const data = await queryMonthlyConsumption();
+  console.log("Monthly Consumption:\n", data);
 
   return (
     <>
