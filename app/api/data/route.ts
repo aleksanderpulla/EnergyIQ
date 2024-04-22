@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
       await newData.save();
       return NextResponse.json({
-        time: new Date(),
+        time: new Date().toLocaleString("en-US", { timeZone: "Europe/Paris" }),
         message: "Data saved successfully",
       });
     }
