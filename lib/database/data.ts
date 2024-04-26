@@ -1,12 +1,10 @@
 import { connectToDatabase } from "@/lib/mongoose";
 import Data from "./models/data.model";
-import { revalidatePath } from "next/cache";
 
 export async function getConsumption() {
   try {
     await connectToDatabase();
     const latestData = await Data.findOne().sort({ createdAt: -1 }).exec();
-    // revalidatePath("/");
     return latestData;
   } catch (error) {
     console.error("Error reading latest data:", error);
