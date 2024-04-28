@@ -3,10 +3,10 @@
 #include <ESP8266HTTPClient.h>
 #include <PZEM004Tv30.h>
 #include <SoftwareSerial.h>
-#include <ArduinoJson.h> // Include ArduinoJson library
+#include <ArduinoJson.h> 
 
-const char *ssid = "Orgest's S23 Ultra";
-const char *password = "gestiklara";
+const char *ssid = "xxx";
+const char *password = "yyy";
 const char *host = "energy-iq.vercel.app";
 
 SoftwareSerial pzemSWSerial(14, 12);
@@ -74,7 +74,7 @@ void loop() {
     WiFiClient client;
     HTTPClient http;
 
-    if (http.begin(client, "host/api/data")) { // Ensure correct URL
+    if (http.begin(client, "<host>/api/data")) { 
       http.addHeader("Content-Type", "application/json");
       
       int httpCode = http.POST(postData);
