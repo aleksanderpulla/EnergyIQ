@@ -5,9 +5,9 @@
 #include <SoftwareSerial.h>
 #include <ArduinoJson.h> 
 
-const char *ssid = "xxx";
-const char *password = "yyy";
-const char *host = "energy-iq.vercel.app";
+const char *ssid = "xxx"; // Replace with your WiFi SSID
+const char *password = "yyy"; // Replace with your WiFi password
+
 
 SoftwareSerial pzemSWSerial(14, 12);
 PZEM004Tv30 pzem(pzemSWSerial);
@@ -74,7 +74,8 @@ void loop() {
     WiFiClient client;
     HTTPClient http;
 
-    if (http.begin(client, "<host>/api/data")) { 
+    // Update "hostName" with your server address
+    if (http.begin(client, "http://hostName/api/data")) { 
       http.addHeader("Content-Type", "application/json");
       
       int httpCode = http.POST(postData);
@@ -91,6 +92,6 @@ void loop() {
       Serial.println("Unable to connect to host");
     }
 
-    delay(2000);
+    delay(3000);
   }
 }
